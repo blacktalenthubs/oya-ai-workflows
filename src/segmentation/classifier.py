@@ -4,7 +4,7 @@ import json
 
 from openai import OpenAI
 
-from src.config import OPENAI_API_KEY
+from src.config import get_key
 
 SYSTEM_PROMPT = """You are a lead scoring AI for OYA, a soccer/football kit brand.
 Given information about a team/club, classify it with the following attributes.
@@ -39,10 +39,10 @@ def classify_lead(
     Returns dict with team_type, competitive_level, buying_potential,
     custom_kit_likelihood, reasoning.
     """
-    if not OPENAI_API_KEY:
+    if not get_key("OPENAI_API_KEY"):
         return _fallback_classification(team_name, league)
 
-    client = OpenAI(api_key=OPENAI_API_KEY)
+    client = OpenAI(api_key=get_key("OPENAI_API_KEY"))
 
     user_msg = f"""Team: {team_name}
 League: {league or 'Unknown'}

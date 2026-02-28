@@ -4,7 +4,7 @@ import re
 
 import requests
 
-from src.config import GOOGLE_PLACES_API_KEY
+from src.config import get_key
 from src.scraping.base_scraper import BaseScraper, ScrapedTeam
 
 PLACES_TEXT_SEARCH_URL = "https://places.googleapis.com/v1/places:searchText"
@@ -17,7 +17,7 @@ class GoogleMapsScraper(BaseScraper):
 
     def __init__(self, api_key: str = "", **kwargs):
         super().__init__(requests_per_second=2.0, **kwargs)
-        self.api_key = api_key or GOOGLE_PLACES_API_KEY
+        self.api_key = api_key or get_key("GOOGLE_PLACES_API_KEY")
 
     def scrape(
         self,
